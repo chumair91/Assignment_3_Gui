@@ -20,7 +20,7 @@ public class HelloApplication extends Application {
 
     // ArrayList to store Person objects
     private ArrayList<Person> personList = new ArrayList<>();
-
+    private File selectedImageFile;
     @Override
     public void start(Stage primaryStage) {
         // Create the layout
@@ -90,8 +90,11 @@ public class HelloApplication extends Application {
             File selectedFile = fileChooser.showOpenDialog(primaryStage);
             if (selectedFile != null) {
                 fileNameLabel.setText(selectedFile.getName());
+                // Save the selected file to the selectedImageFile variable
+                selectedImageFile = selectedFile;
             }
         });
+        
         HBox fileChooserBox = new HBox(10, fileChooserButton, fileNameLabel);
         formGrid.add(imageLabel, 0, 6);
         formGrid.add(fileChooserBox, 1, 6);
@@ -108,8 +111,8 @@ public class HelloApplication extends Application {
             String dateOfBirth = datePicker.getValue() != null ? datePicker.getValue().toString() : "";
             String gender = ((RadioButton) genderGroup.getSelectedToggle()).getText();
             String city = cityComboBox.getValue();
-            File imageFile = null; // Add logic to retrieve file if needed
-
+            File imageFile = selectedImageFile; 
+        
             // Create Person object and add to ArrayList
             Person person = new Person(name, fatherName, cnic, dateOfBirth, gender, city, imageFile);
             personList.add(person);
